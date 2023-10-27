@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 CALCULATE, TRADE, DECISION = range(3)
 
 # allowed FX symbols
-SYMBOLS = ['AUDCAD', 'AUDCHF', 'AUDJPY', 'AUDNZD', 'AUDUSD', 'CADCHF', 'CADJPY', 'CHFJPY', 'EURAUD', 'EURCAD', 'EURCHF', 'EURGBP', 'EURJPY', 'EURNZD', 'EURUSD', 'GBPAUD', 'GBPCAD', 'GBPCHF', 'GBPJPY', 'GBPNZD', 'GBPUSD', 'NOW', 'NZDCAD', 'NZDCHF', 'NZDJPY', 'NZDUSD', 'USDCAD', 'USDCHF', 'USDJPY', 'XAGUSD', 'XAUUSDm']
+SYMBOLS = ['XAUUSDm', 'AUDCADm', 'AUDCHFm', 'AUDJPYm', 'AUDNZDm', 'AUDUSDm', 'CADCHFm', 'CADJPYm', 'CHFJPYm', 'EURAUDm', 'EURCADm', 'EURCHFm', 'EURGBPm', 'EURJPYm', 'EURNZDm', 'EURUSDm', 'GBPAUDm', 'GBPCADm', 'GBPCHFm', 'GBPJPYm', 'GBPNZDm', 'GBPUSDm', 'NOW', 'NZDCADm', 'NZDCHFm', 'NZDJPYm', 'NZDUSDm', 'USDCADm', 'USDCHFm', 'USDJPYm', 'XAGUSDm', 'US30m']
 
 # RISK FACTOR
 RISK_FACTOR = float(os.environ.get("RISK_FACTOR"))
@@ -81,14 +81,14 @@ def ParseSignal(signal: str) -> dict:
     
     # returns an empty dictionary if an invalid order type was given
     else:
-        return {}
+        return {'error': 'Invalid order type or symbol.'}
 
     # extracts symbol from trade signal
     trade['Symbol'] = (signal[0].split())[-1].upper()
     
     # checks if the symbol is valid, if not, returns an empty dictionary
     if(trade['Symbol'] not in SYMBOLS):
-        return {}
+        return {'error': 'Invalid order type or symbol.'}
     
     # checks wheter or not to convert entry to float because of market exectution option ("NOW")
     if(trade['OrderType'] == 'Buy' or trade['OrderType'] == 'Sell'):
