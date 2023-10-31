@@ -452,6 +452,7 @@ def CalculateTrade(update: Update, context: CallbackContext) -> int:
 
 
 def unknown_command(update: Update, context: CallbackContext) -> None:
+    return Trade_Command(update, context)
     """Checks if the user is authorized to use this bot or shares to use /help command for instructions.
 
     Arguments:
@@ -608,7 +609,7 @@ def main() -> None:
 
     conv_handler = ConversationHandler(
         entry_points=[
-            CommandHandler("trade", Trade_Command),
+            
             CommandHandler("calculate", Calculation_Command),
         ],
         states={
